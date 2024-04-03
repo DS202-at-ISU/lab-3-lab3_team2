@@ -65,7 +65,14 @@ average_deaths <- deaths %>%
 # Print the average number of deaths
 print(average_deaths)
 
-# another line
+# Reshape Return columns into Time and Return columns
+returns <- av %>%
+  pivot_longer(cols = starts_with("Return"),
+               names_to = "Time",
+               values_to = "Return") %>%
+  mutate(Time = parse_number(Time),
+         Death = convert_status(Return)) %>%
+  select(Time, Return)
 
 ```
 
