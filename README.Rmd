@@ -35,6 +35,44 @@ Similarly, deal with the returns of characters.
 
 Based on these datasets calculate the average number of deaths an Avenger suffers. 
 
+```{r}
+#DEATHS CODE
+library(dplyr)  # for data manipulation
+library(stringr)  # for string operations
+
+# Function to convert "YES", "NO", and "" to the desired format
+convert_status <- function(x) {
+  ifelse(x == "YES", "YES", ifelse(x == "NO", "NO", ""))
+}
+
+library(tidyr)  # for data reshaping
+library(readr)
+
+# Reshape Death columns into Time and Death columns
+deaths <- av %>%
+  pivot_longer(cols = starts_with("Death"),
+               names_to = "Time",
+               values_to = "Death") %>%
+  mutate(Time = parse_number(Time),
+         Death = convert_status(Death)) %>%
+  select(Time, Death)
+
+# Calculate the average number of deaths per Avenger
+average_deaths <- deaths %>%
+  filter(Death == "yes") %>%
+  summarise(avg_deaths = mean(Time, na.rm = TRUE))
+
+# Print the average number of deaths
+print(average_deaths)
+
+# another line
+
+```
+```{r}
+
+```
+
+
 ## Individually
 
 For each team member, copy this part of the report. 
