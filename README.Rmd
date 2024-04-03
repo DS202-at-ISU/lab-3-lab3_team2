@@ -140,16 +140,26 @@ avengers$has_died
 ```
 ***Each of the nine Avengers mentioned has died at least once in the course of their time.***
 
-### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact-check.
+### Abi's Code and Answer
 
-### Include the code
+> I counted 89 total deaths — some unlucky Avengers7 are basically Meat Loaf with an E-ZPass — and on 57 occasions the individual made a comeback. Maybe they didn’t actually die and were secretly in the Microverse, or they stayed on Franklin Richards‘s or the Scarlet Witch‘s good side in life, or they were dragged back into Avenging by the Chaos King or the Grim Reaper, or perhaps a colleague made a deal with time travelers. Who knows!
 
-Make sure to include the code to derive the (numeric) fact for the statement
+```{r}
+# Total number of deaths counted
+total_deaths <- deaths %>%
+  filter(Death == "YES") %>%
+  summarise(total_deaths = n())
 
-### Include your answer
+# Total number of comebacks
+total_returns <- returns %>%
+  filter(Return == "YES") %>%
+  summarise(total_returns = n())
 
-Include at least one sentence discussing the result of your fact-checking endeavor.
+# Print the total number of deaths and returns
+print(total_deaths)
+print(total_returns)
+```
+***The total number of deaths is 89, while the number of returns is 57, making the statement true.***
 
 Upload your changes to the repository. Discuss and refine answers as a team.
