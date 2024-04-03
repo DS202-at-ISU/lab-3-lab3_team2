@@ -65,15 +65,6 @@ average_deaths <- deaths %>%
 # Print the average number of deaths
 print(average_deaths)
 
-# Reshape Return columns into Time and Return columns
-returns <- av %>%
-  pivot_longer(cols = starts_with("Return"),
-               names_to = "Time",
-               values_to = "Return") %>%
-  mutate(Time = parse_number(Time),
-         Death = convert_status(Return)) %>%
-  select(Time, Return)
-
 ```
 
 ```{r}
@@ -98,12 +89,12 @@ returns <- av %>%
          Death = convert_statusr(Return)) %>%
   select(Time, Return)
 
-# Calculate the average number of deaths per Avenger
+# Calculate the average number of returns per Avenger
 average_returns <- returns %>%
   filter(Return == "YES") %>%
   summarise(avg_returns = mean(Time, na.rm = TRUE))
 
-# Print the average number of deaths
+# Print the average number of returns
 print(average_returns)
 ```
 
