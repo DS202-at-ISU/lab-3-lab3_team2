@@ -112,8 +112,20 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 
 ### Connor's Code
 ```{r}
+# Count occurrences of "YES" in Death column for each period in Time column
+death_counts <- deaths %>%
+  group_by(Time) %>%
+  count(Death) %>%
+  filter(Death == "YES") %>%
+  rename(Deaths_YES = n) %>%
+  select(Time, Deaths_YES)
 
+# Print the resulting data frame
+print(death_counts)
 ```
+### Connor's answer
+
+***As we can see, the number of avengers who died at least once is 69. This proves that the statement that 69 out of 173 avengers have died is true.***
 
 ### FiveThirtyEight Statement
 
