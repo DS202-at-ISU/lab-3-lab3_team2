@@ -70,7 +70,34 @@ print(average_deaths)
 ```
 
 ```{r}
+#RETURNS CODE
+library(dplyr)  # for data manipulation
+library(stringr)  # for string operations
 
+# Function to convert "YES", "NO", and "" to the desired format
+convert_statusr <- function(x) {
+  ifelse(x == "YES", "YES", ifelse(x == "NO", "NO", ""))
+}
+
+library(tidyr)  # for data reshaping
+library(readr)
+
+# Reshape Return columns into Time and Return columns
+returnss <- av %>%
+  pivot_longer(cols = starts_with("Return"),
+               names_to = "Time",
+               values_to = "Return") %>%
+  mutate(Time = parse_number(Time),
+         Death = convert_status(Death)) %>%
+  select(Time, Death)
+
+# Calculate the average number of deaths per Avenger
+average_deaths <- deaths %>%
+  filter(Death == "YES") %>%
+  summarise(avg_deaths = mean(Time, na.rm = TRUE))
+
+# Print the average number of deaths
+print(average_deaths)
 ```
 
 
@@ -79,6 +106,14 @@ print(average_deaths)
 For each team member, copy this part of the report. 
 
 Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
+
+### FiveThirtyEight Statement
+> Out of 173 listed Avengers, my analysis found that 69 had died at least one time after they joined the team.5 That’s about 40 percent of all people who have ever signed on to the team. 
+
+### Connor's Code
+```{r}
+
+```
 
 ### FiveThirtyEight Statement
 
