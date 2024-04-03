@@ -83,21 +83,21 @@ library(tidyr)  # for data reshaping
 library(readr)
 
 # Reshape Return columns into Time and Return columns
-returnss <- av %>%
+returns <- av %>%
   pivot_longer(cols = starts_with("Return"),
                names_to = "Time",
                values_to = "Return") %>%
   mutate(Time = parse_number(Time),
-         Death = convert_status(Death)) %>%
-  select(Time, Death)
+         Death = convert_statusr(Return)) %>%
+  select(Time, Return)
 
 # Calculate the average number of deaths per Avenger
-average_deaths <- deaths %>%
-  filter(Death == "YES") %>%
-  summarise(avg_deaths = mean(Time, na.rm = TRUE))
+average_returns <- returns %>%
+  filter(Return == "YES") %>%
+  summarise(avg_returns = mean(Time, na.rm = TRUE))
 
 # Print the average number of deaths
-print(average_deaths)
+print(average_returns)
 ```
 
 
