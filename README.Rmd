@@ -127,6 +127,21 @@ print(death_counts)
 
 ***As we can see, the number of avengers who died at least once is 69. This proves that the statement that 69 out of 173 avengers have died is true.***
 
+### Melania's Code & Answer
+***"What’s more, if you’re a fan of the MCU, nobody is safe. Of the nine Avengers we see on screen — Iron Man, Hulk, Captain America, Thor, Hawkeye, Black Widow, Scarlet Witch, Quicksilver and The Vision — every single one of them has died at least once in the course of their time Avenging in the comics. In fact, Hawkeye died twice!"***
+```{r}
+# Filter to only include the nine Avengers mentioned in the quote
+avengers <- av %>%
+  filter(Name.Alias %in% c('Anthony Edward "Tony" Stark', "Robert Bruce Banner", "Steven Rogers", "Thor Odinson", "Clinton Francis Barton", "Natalia Alianovna Romanova", "Wanda Maximoff", "Pietro Maximoff", "Victor Shade (alias)"))
+avengers
+
+# Check if each avenger has at least one "YES" in deaths
+avengers <- avengers %>%
+  mutate(has_died = rowSums(select(., starts_with("Death")) == "YES") > 0)
+avengers$has_died
+```
+***Each of the nine Avengers mentioned has died at least once in the course of their time.***
+
 ### FiveThirtyEight Statement
 
 > Quote the statement you are planning to fact-check.
