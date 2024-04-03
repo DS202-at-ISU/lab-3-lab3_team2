@@ -59,7 +59,7 @@ deaths <- av %>%
 
 # Calculate the average number of deaths per Avenger
 average_deaths <- deaths %>%
-  filter(Death == "yes") %>%
+  filter(Death == "YES") %>%
   summarise(avg_deaths = mean(Time, na.rm = TRUE))
 
 # Print the average number of deaths
@@ -68,6 +68,7 @@ print(average_deaths)
 # another line
 
 ```
+
 ```{r}
 
 ```
