@@ -162,4 +162,36 @@ print(total_returns)
 ```
 ***The total number of deaths is 89, while the number of returns is 57, making the statement true.***
 
+
+### Emilie's Code and Answer 
+### I always have issues committing from R Studio
+
+##But you can only tempt death so many times. There’s a 2-in-3 chance that a member of the Avengers returned from their first stint in the afterlife, but only a 50 percent chance they recovered from a second or third death.
+```{r}
+# Reshape returns data
+  returns <- av %>%
+  select(Name.Alias, starts_with("Return")) %>%
+  pivot_longer(cols = starts_with("Return"), names_to = "Time", values_to = "Return") %>%
+  mutate(Time = parse_number(Time),
+         Return = ifelse(Return == "YES", 1, 0)) # Convert "YES" to 1, "NO" to 0
+
+# Count the number of Avengers by the number of times they returned from death
+return_counts <- returns %>%
+  group_by(Name.Alias) %>%
+  summarise(return_count = sum(Return)) %>%
+  ungroup()
+
+# Calculate probabilities
+prob_return_first <- mean(return_counts$return_count == 1)
+prob_return_second <- mean(return_counts$return_count == 2)
+prob_return_third <- mean(return_counts$return_count == 3)
+
+# Display probabilities
+prob_return_first
+prob_return_second
+prob_return_third
+```
+**We can see that the statement seems to be reasonably accurate in the terms that an Avenger has a higher chance of returning after their first death, with diminishing chances the more you die. This aligns with what the data is saying, although I don't believe the chances to be 2/3. That would result in a probability of roughly .67 while I am only returning a .22**
+
+
 Upload your changes to the repository. Discuss and refine answers as a team.
